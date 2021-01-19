@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Game Caro Onilne</title>
+    <link rel="stylesheet" type="text/css" href="./css/CssFile.css" />
+    <link href="./Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width= device-width,initial-scale=1" />
+    <script type="text/javascript" src="./js/EventFile.js"></script>
+    <script type="text/javascript" src="./js/AIFile.js"></script>
+  </head>
+  <body onLoad="Loaded()" id="bgr">
+    <div id="main">
+      <div id="divmain">
+        <table id="table"></table>
+      </div>
+      <div id="divcontrol">
+        <div id="label1"><b>NGƯỜI CHƠI HIỆN TẠI:</b></div>
+        <div id="imgPlayer"></div>
+        <br style="clear: both" />
+        <div id="label2">
+          <b>TIME:</b>
+        </div>
+        <progress id="pgrTime" max="100" value="100"></progress>
+        <time></time>
+        <br style="clear: both" />
+        <input type="button" class="button" value="CHƠI LẠI" onClick="PvsM()" />
+        <input
+          type="button"
+          class="button"
+          value="UNDO"
+          onClick="Undo(2)"
+        /><br />
+      </div>
+    </div>
+
+    <script>
+      PvsM();
+    </script>
+  </body>
+</html>

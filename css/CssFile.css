@@ -1,0 +1,115 @@
+@charset "utf-8";
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
+*{
+	font-size: 16px;
+	padding: 0;
+	margin: 0;  
+	overflow: hidden;
+  }
+#bgr
+{
+
+	background-image:url('../images/bgr.jpg');
+	background-size: cover;
+	z-index:-900;
+	overflow: hidden;
+	height: 100%;
+}
+#main{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background-color: white;
+	border-radius: 1rem;
+	width: 50%;
+}
+#divmain
+{
+	width:70%;
+	height: 100%;
+	float: left;
+	overflow:hidden;
+}
+#divcontrol
+{
+	width:30%;
+	height: 100%;
+	float: right;
+	background-color:white;
+	overflow:hidden;
+	border-radius:20px;
+	
+}
+#imgPlayer
+{
+	width:100px;
+	height:100px;
+	margin: 0 68px;
+	margin-top:17px;
+	background-image:url('../images/Opng.png');
+	background-repeat:round;
+	background-color: white;
+}
+
+#divcheckbox
+{
+	width:150px;
+	margin:auto;
+	margin-top:10px;
+}
+
+#pgrTime
+{
+	margin-left:10px;
+	width:140px;
+	height:14px;
+	background-color:#3F6;
+}
+
+.square
+{
+	width:2rem;
+	height:2rem;
+	font-size:9px;
+	border: #BDBDBD .5px solid;
+	background-color:white;
+	background-repeat:round;
+	overflow:hidden;
+	cursor:pointer;
+}
+#label1
+{
+	margin-top:10px;
+	margin-left:20px;
+}
+#label2
+{
+	
+	margin-left:20px;
+	float:left;
+}
+.button
+{
+	width:200px;
+	height:50px;
+	margin-left:20px;
+	margin-top:30px;
+	font-weight:700;
+	font-family:shadows into light;
+	background-color:orange;
+	cursor:pointer;
+	font-size: 20px;
+	border: orange 1px solid;
+	border-radius:15px;
+	color:#FFF;
+	outline: none;
+}
+table{
+	border-spacing: 0;
+	border:orange 2px solid;
+	margin: 8px;
+}
+table .col{
+	padding: 0;
+}
