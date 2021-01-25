@@ -70,8 +70,8 @@
 }
 #table .square
 {
-	width:2rem;
-	height:2rem;
+	width:2.5rem;
+	height:2.5rem;
 	font-size:9px;
 	border: #BDBDBD .5px solid;
 	background-color:white;

@@ -1,65 +1,65 @@
 class AI {
-	constructor(depth, color) {
-		if(depth > 0) {
-			this.depth = depth;
-		} else {
-			console.log("Error: Depth has to be greater than 0.");
-		}
+  constructor(depth, color) {
+    if (depth > 0) {
+      this.depth = depth;
+    } else {
+      console.log("Error: Depth has to be greater than 0.");
+    }
 
-		this.computerColor = null;
-		this.playerColor = null;
+    this.computerColor = null;
+    this.playerColor = null;
 
-		if(color == "white") {
-			this.playerColor = 2;	// X
-			this.computerColor = 1;	// O
-		} else {
-			this.playerColor = 1;	// O
-			this.computerColor = 2;	// X
-		}
-	}
+    if (color == "white") {
+      this.playerColor = 2; // X
+      this.computerColor = 1; // O
+    } else {
+      this.playerColor = 1; // O
+      this.computerColor = 2; // X
+    }
+  }
 
-	getBestMove(board) {
-		//lấy dữ liệu bàn cờ
-		let node = board.getMatrixCopy();
-		//Number.MIN_SAFE_INTEGER là âm vô cùng
-		//Number.MAX_SAFE_INTEGER là dương vô cùng
-		let bestMove = this.minimax(node, this.depth, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, true);
-		return bestMove;
-	}
+  getBestMove(board) {
+    //lấy dữ liệu bàn cờ
+    let node = board.getMatrixCopy();
+    //Number.MIN_SAFE_INTEGER là âm vô cùng
+    //Number.MAX_SAFE_INTEGER là dương vô cùng
+    let bestMove = this.minimax(
+      node,
+      this.depth,
+      Number.MIN_SAFE_INTEGER,
+      Number.MAX_SAFE_INTEGER,
+      true
+    );
+    return bestMove;
+  }
 
-	//Tìm 
+  //Tìm kiếm ô chưa đánh
 	getEmptySlots(matrix) {
-		console.log(matrix);
 		let emptySlots = [];
 		for(let x = 0; x < matrix.length; x++) {
 			for(let y = 0; y < matrix[x].length; y++) {
 				if( this.itsGoodToPlay(matrix, x, y) ) {
-					 
 					emptySlots.push([x,y]);
-					// console.log(emptySlots);
 				}
 			}
 		}
-		//Nếu người chọn X để đánh mặc định đánh giữ
 		if( emptySlots.length == 0 ){
-			console.log("ok")
-			emptySlots.push([9,9]);
+			emptySlots.push([7,7]);
 		}
 		return emptySlots;
 	}
-	
+  
 	itsGoodToPlay( matrix, x, y ){
 		if( matrix[x][y] != 0 ){
 			return false;
 		}
-		//Bỏ các ô viền ra, chỉ lấy ô bên trong
-		if( ( x + 1 < 19 && matrix[x + 1][y] != 0 )|| 
+		if( ( x + 1 < 15 && matrix[x + 1][y] != 0 )|| 
 			( x - 1 > 0 && matrix[x - 1][y] != 0 )||
-			( y + 1 < 19 && matrix[x][y + 1] != 0 )||
+			( y + 1 < 15 && matrix[x][y + 1] != 0 )||
 			( y - 1 > 0 && matrix[x][y - 1] != 0 )||
-			( x + 1 < 19 && y + 1 < 19 && matrix[x + 1][y + 1] != 0 )||
-			( x - 1 > 0 && y + 1 < 19 && matrix[x - 1][y + 1] != 0 )||
-			( x + 1 < 19 && y - 1 > 0 && matrix[x + 1][y - 1] != 0 )||
+			( x + 1 < 15 && y + 1 < 15 && matrix[x + 1][y + 1] != 0 )||
+			( x - 1 > 0 && y + 1 < 15 && matrix[x - 1][y + 1] != 0 )||
+			( x + 1 < 15 && y - 1 > 0 && matrix[x + 1][y - 1] != 0 )||
 			( x - 1 > 0 && y - 1 > 0 && matrix[x - 1][y - 1] != 0 ) ){
 			return true;
 		}
@@ -71,10 +71,10 @@ class AI {
 		hValue += this.getVerticalValue( matrix, iaColor);
 		hValue += this.getHorizontallValue( matrix, iaColor);
 		hValue += this.getFirstDiagonalValue( matrix, iaColor);
-		hValue += this.getSecondDiagonalValue( matrix, iaColor);
+		hValue += this.getSecundDiagonalValue( matrix, iaColor);
 		return hValue;
 	}
-	//Tính điểm chiều dọc
+  //Tính điểm hàng dọc
 	getVerticalValue(matrix, iaColor){
 		let hValue = 0;
 		for(let y = 0; y < matrix.length; y++) {
@@ -85,34 +85,31 @@ class AI {
 			let xBlocked = 0;
 			let xSpaceAfter = 0;
 			for(let x = 0; x < matrix[y].length; x++) {
-				//Không có giá trị nào hợp lệ nó bắt đầu sau 18
-				if( xLength == 0 && x > 14 ){ 
+				if( xLength == 0 && x > 10 ){ 
 					break;
 				}
 				if( matrix[x][y] == 0 ){
 					if( xLength == 0){ 
 						continue;
-					}else{  // tupla com espaços;
+					}else{  
 						xCount++;
 						xSpace++;
 						xSpaceAfter++;
 					}
 				}else{
-					if( xLength == 0 ){ // nova tupla
-						xCount = 1;
+					if( xLength == 0 ){ 
 						xLength = 1;
 						xColor = matrix[x][y];
-					}else{ // atualizar tupla
-						if( matrix[x][y] == xColor ){ // aumenta o length
+					}else{ 
+						if( matrix[x][y] == xColor ){ 
 							xCount++;
 							xLength++;
 							xSpaceAfter = 0;
 							if( x < 5 ){
 								xBlocked = 1;
 							}
-						}else{ // blockeia // comeca nova
-							if( xBlocked == 0 ){ //adiciona tupla blockead // caso xBlocked != 0 quer diser que a tupla ja estava blockeada 
-												 // nao seram adicionadas tuplas blockeadas dos dois lados
+						}else{ 
+							if( xBlocked == 0 ){ 
 								xBlocked = 1;
 								hValue += this.getTupleValue( xLength, xSpace - xSpaceAfter, xBlocked, xColor, iaColor);
 							}
@@ -125,7 +122,7 @@ class AI {
 						}
 					}
 				}
-				if( xCount == 5 ){ //adiciona valor de tupla
+				if( xCount == 5 ){
 					hValue += this.getTupleValue( xLength, xSpace - xSpaceAfter, xBlocked, xColor, iaColor );
 					xCount = 0;
 					xLength = 0;
@@ -138,7 +135,7 @@ class AI {
 		}
 		return hValue;
 	}
-	//Tính điểm chiều ngang
+  //Tính điểm hàng ngang
 	getHorizontallValue(matrix, iaColor){
 		let hValue = 0;
 		for(let x = 0; x < matrix.length; x++) {
@@ -149,34 +146,31 @@ class AI {
 			let xBlocked = 0;
 			let xSpaceAfter = 0;
 			for(let y = 0; y < matrix[x].length; y++) {
-				if( xLength == 0 && y > 14 ){ // nao haveram tuplas validas caso nao tenha começado antes do 14
+				if( xLength == 0 && y > 10 ){
 					break;
 				}
 				if( matrix[x][y] == 0 ){
-					if( xLength == 0){ // nenhuma tupla
+					if( xLength == 0){ 
 						continue;
-					}else{  // tupla com espaços;
+					}else{  
 						xCount++;
 						xSpace++;
 						xSpaceAfter++;
 					}
 				}else{
-					if( xLength == 0 ){ // nova tupla
+					if( xLength == 0 ){
 						xCount = 1;
 						xLength = 1;
 						xColor = matrix[x][y];
 					}else{ // atualizar tupla
-						if( matrix[x][y] == xColor ){ // aumenta o length
-							xCount++;
+						if( matrix[x][y] == xColor ){
 							xLength++;
 							xSpaceAfter = 0;
 							if( x < 5 ){
 								xBlocked = 1;
 							}
-						}else{ // blockeia // comeca nova
-							if( xBlocked == 0 ){ //adiciona tupla blockead // caso xBlocked != 0 quer diser que a tupla ja estava blockeada 
-												 // nao seram adicionadas tuplas blockeadas dos dois lados
-								xBlocked = 1;
+						}else{ 
+							if( xBlocked == 0 ){xBlocked = 1;
 								hValue += this.getTupleValue( xLength, xSpace - xSpaceAfter, xBlocked, xColor, iaColor);
 							}
 							xCount = 1;
@@ -188,7 +182,7 @@ class AI {
 						}
 					}
 				}
-				if( xCount == 5 ){ //adiciona valor de tupla
+				if( xCount == 5 ){
 					hValue += this.getTupleValue( xLength, xSpace - xSpaceAfter, xBlocked, xColor, iaColor );
 					xCount = 0;
 					xLength = 0;
@@ -201,12 +195,12 @@ class AI {
 		}
 		return hValue;
 	}
-	//Tính
+  //Tính điểm chéo
 	getFirstDiagonalValue(matrix, iaColor){
 		let hValue = 0;
 		let coluna = 0;
 		let counter = 0;
-		for( let linha = 0; linha < 14; linha++ ){
+		for( let linha = 0; linha < 10; linha++ ){
 			let dCount = 0;
 			let dLength = 0;
 			let dSpace = 0;
@@ -216,36 +210,36 @@ class AI {
 			for( let i = 0; i < matrix.length; i++ ){
 				let x = coluna + i;
 				let y = linha + i; 
-				if( x > 18 || y > 18 ){
+				if( x > 14 || y > 14 ){
 					break;
 				}
-				if( dLength == 0 && x > 14 ){ // nao haveram tuplas validas caso nao tenha começado antes do 14
+				if( dLength == 0 && x > 10 ){
 					break;
 				}
 				if( matrix[x][y] == 0 ){
-					if( dLength == 0){ // nenhuma tupla
+					if( dLength == 0){ 
 						continue;
-					}else{  // tupla com espaços;
+					}else{ 
 						dCount++;
 						dSpace++;
 						dSpaceAfter++;
 					}
 				}else{
-					if( dLength == 0 ){ // nova tupla
+					if( dLength == 0 ){
 						dCount = 1;
 						dLength = 1;
 						dColor = matrix[x][y];
-					}else{ // atualizar tupla
-						if( matrix[x][y] == dColor ){ // aumenta o length
+					}else{
+						if( matrix[x][y] == dColor ){
 							dCount++;
 							dLength++;
 							dSpaceAfter = 0;
 							if( x < 5 ){
 								dBlocked = 1;
 							}
-						}else{ // blockeia // comeca nova
-							if( dBlocked == 0 ){ //adiciona tupla blockead // caso xBlocked != 0 quer diser que a tupla ja estava blockeada 
-												 // nao seram adicionadas tuplas blockeadas dos dois lados
+						}else{ 
+							if( dBlocked == 0 ){
+												
 								dBlocked = 1;
 								hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor);
 							}
@@ -258,7 +252,7 @@ class AI {
 						}
 					}
 				}
-				if( dCount == 5 ){ //adiciona valor de tupla
+				if( dCount == 5 ){ 
 					hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor );
 					dCount = 0;
 					dLength = 0;
@@ -276,7 +270,7 @@ class AI {
 			}
 		}
 		let linha = 0;
-		for( coluna = 1; coluna < 14; coluna++ ){
+		for( coluna = 1; coluna < 10; coluna++ ){
 			let dCount = 0;
 			let dLength = 0;
 			let dSpace = 0;
@@ -286,36 +280,36 @@ class AI {
 			for( let i = 0; i < matrix.length; i++ ){
 				let x = coluna + i;
 				let y = linha + i; 
-				if( x > 18 || y > 18 ){
-					break; // supostamente e para parar apenas o 2 loop
+				if( x > 14 || y > 14 ){
+					break; 
 				}
-				if( dLength == 0 && x > 14 ){ // nao haveram tuplas validas caso nao tenha começado antes do 14
+				if( dLength == 0 && x > 10 ){ 
 					break;
 				}
 				if( matrix[x][y] == 0 ){
-					if( dLength == 0){ // nenhuma tupla
+					if( dLength == 0){ 
 						continue;
-					}else{  // tupla com espaços;
+					}else{  
 						dCount++;
 						dSpace++;
 						dSpaceAfter++;
 					}
 				}else{
-					if( dLength == 0 ){ // nova tupla
+					if( dLength == 0 ){
 						dCount = 1;
 						dLength = 1;
 						dColor = matrix[x][y];
 					}else{ // atualizar tupla
-						if( matrix[x][y] == dColor ){ // aumenta o length
+						if( matrix[x][y] == dColor ){ 
 							dCount++;
 							dLength++;
 							dSpaceAfter = 0;
 							if( x < 5 ){
 								dBlocked = 1;
 							}
-						}else{ // blockeia // comeca nova
-							if( dBlocked == 0 ){ //adiciona tupla blockead // caso xBlocked != 0 quer diser que a tupla ja estava blockeada 
-												 // nao seram adicionadas tuplas blockeadas dos dois lados
+						}else{ 
+							if( dBlocked == 0 ){
+											
 								dBlocked = 1;
 								hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor);
 							}
@@ -328,7 +322,7 @@ class AI {
 						}
 					}
 				}
-				if( dCount == 5 ){ //adiciona valor de tupla
+				if( dCount == 5 ){
 					hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor );
 					dCount = 0;
 					dLength = 0;
@@ -348,10 +342,10 @@ class AI {
 		return hValue;
 	}
 
-	getSecondDiagonalValue(matrix, iaColor){
+	getSecundDiagonalValue(matrix, iaColor){
 		let hValue = 0;
 		let counter = 0;
-		for( let linha = 18; linha >= 4; linha-- ){
+		for( let linha = 14; linha >= 4; linha-- ){
 			let dCount = 0;
 			let dLength = 0;
 			let dSpace = 0;
@@ -368,26 +362,26 @@ class AI {
 					counter++;
 				}
 				if( matrix[x][y] == 0 ){
-					if( dLength == 0){ // nenhuma tupla
+					if( dLength == 0){
 						continue;
-					}else{  // tupla com espaços;
+					}else{  
 						dCount++;
 						dSpace++;
 						dSpaceAfter++;
 					}
 				}else{
-					if( dLength == 0 ){ // nova tupla
+					if( dLength == 0 ){ 
 						dCount = 1;
 						dLength = 1;
 						dColor = matrix[x][y];
-					}else{ // atualizar tupla
-						if( matrix[x][y] == dColor ){ // aumenta o length
+					}else{ 
+						if( matrix[x][y] == dColor ){
 							dCount++;
 							dLength++;
 							dSpaceAfter = 0;
-						}else{ // blockeia // comeca nova
-							if( dBlocked == 0 ){ //adiciona tupla blockead // caso xBlocked != 0 quer diser que a tupla ja estava blockeada 
-												 // nao seram adicionadas tuplas blockeadas dos dois lados
+						}else{
+							if( dBlocked == 0 ){  
+											
 								dBlocked = 1;
 								hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor);
 							}
@@ -400,7 +394,7 @@ class AI {
 						}
 					}
 				}
-				if( dCount == 5 ){ //adiciona valor de tupla
+				if( dCount == 5 ){ 
 					hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor );
 					dCount = 0;
 					dLength = 0;
@@ -425,32 +419,32 @@ class AI {
 			let dBlocked = 0;
 			let dSpaceAfter = 0;
 			for( let i = 0; i < matrix.length; i++ ){
-				let x = 18 - i;
+				let x = 14 - i;
 				let y = coluna + i;
-				if( x < 0 || y > 18 ){
+				if( x < 0 || y > 14 ){
 					break;
 				}
 				if( matrix[x][y] == 0 ){
-					if( dLength == 0){ // nenhuma tupla
+					if( dLength == 0){
 						continue;
-					}else{  // tupla com espaços;
+					}else{  
 						dCount++;
 						dSpace++;
 						dSpaceAfter++;
 					}
 				}else{
-					if( dLength == 0 ){ // nova tupla
+					if( dLength == 0 ){ 
 						dCount = 1;
 						dLength = 1;
 						dColor = matrix[x][y];
-					}else{ // atualizar tupla
-						if( matrix[x][y] == dColor ){ // aumenta o length
+					}else{ 
+						if( matrix[x][y] == dColor ){ 
 							dCount++;
 							dLength++;
 							dSpaceAfter = 0;
-						}else{ // blockeia // comeca nova
-							if( dBlocked == 0 ){ //adiciona tupla blockead // caso xBlocked != 0 quer diser que a tupla ja estava blockeada 
-												 // nao seram adicionadas tuplas blockeadas dos dois lados
+						}else{ 
+							if( dBlocked == 0 ){ 
+												
 								dBlocked = 1;
 								hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor);
 							}
@@ -463,7 +457,7 @@ class AI {
 						}
 					}
 				}
-				if( dCount == 5 ){ //adiciona valor de tupla
+				if( dCount == 5 ){ 
 					hValue += this.getTupleValue( dLength, dSpace - dSpaceAfter, dBlocked, dColor, iaColor );
 					dCount = 0;
 					dLength = 0;
@@ -480,7 +474,7 @@ class AI {
 		return hValue;
 	}
 
-	//Hàm tính điểm
+
 	getTupleValue(length, spaces, blocked, color, iaColor){
 		let value = 0;
 		if( color == iaColor ){
@@ -518,83 +512,82 @@ class AI {
 	}
 
 	modifier( spaces, blocked ){
-		return 14 - spaces - (blocked * 4);
+		return 10 - spaces - (blocked * 4);
 	}
 
-	minimax(node, depth, alpha, beta, maximizing)
-	{
-		let v = Number.MIN_SAFE_INTEGER;
-		let children = this.getEmptySlots(node);
-		let bestPlay = [];//Trả về bước đi
-		let bestValue = Number.MIN_SAFE_INTEGER;
+  minimax(node, depth, alpha, beta, maximizing) {
+    let v = Number.MIN_SAFE_INTEGER;
+    let children = this.getEmptySlots(node);
+    let bestPlay = []; //Trả về bước đi
+    let bestValue = Number.MIN_SAFE_INTEGER;
 
-		for(let i = 0; i < children.length; i++) {
-			
-			let x = children[i][0];
-			let y = children[i][1];
+    for (let i = 0; i < children.length; i++) {
+      let x = children[i][0];
+      let y = children[i][1];
 
-			node[x][y] = this.computerColor;
-			v = this.minimaxNext(node, depth - 1, alpha, beta, maximizing);
-			node[x][y] = 0;
+      node[x][y] = this.computerColor;
+      v = this.minimaxNext(node, depth - 1, alpha, beta, maximizing);
+      node[x][y] = 0;
 
-			if(bestValue < v) {
-				bestPlay = [];
-				bestValue = v;
-				bestPlay.push(x);
-				bestPlay.push(y);
-			}
+      if (bestValue < v) {
+        bestPlay = [];
+        bestValue = v;
+        bestPlay.push(x);
+        bestPlay.push(y);
+      }
 
-			alpha = Math.max(alpha, v);
+      alpha = Math.max(alpha, v);
 
-			if(beta <= alpha) {
-				break;
-			}
-		}
-		return bestPlay;
-	}
-	/* Based on pseudocode from: https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning#Pseudocode */
-	minimaxNext(node, depth, alpha, beta, maximizing) {		
-		if(depth == 0) {
-			let totalHeuristic = this.heuristic(node, this.computerColor);
-			return totalHeuristic;
-		}
+      if (beta <= alpha) {
+        break;
+      }
+    }
+    return bestPlay;
+  }
+  
+  minimaxNext(node, depth, alpha, beta, maximizing) {
+    if (depth == 0) {
+      let totalHeuristic = this.heuristic(node, this.computerColor);
+      return totalHeuristic;
+    }
 
-		if(maximizing) {
-			let v = Number.MIN_SAFE_INTEGER;
-			let children = this.getEmptySlots(node);
+    if (maximizing) {
+      let v = Number.MIN_SAFE_INTEGER;
+      let children = this.getEmptySlots(node);
 
-			for(let i = 0; i < children.length; i++) {
-				let x = children[i][0];
-				let y = children[i][1];
+      for (let i = 0; i < children.length; i++) {
+        let x = children[i][0];
+        let y = children[i][1];
 
-				node[x][y] = this.computerColor;
-				v = Math.max(v, this.minimaxNext(node, depth - 1, alpha, beta, false));
-				alpha = Math.max(alpha, v);
-				node[x][y] = 0;
+        node[x][y] = this.computerColor;
+        v = Math.max(v, this.minimaxNext(node, depth - 1, alpha, beta, false));
+        alpha = Math.max(alpha, v);
+        node[x][y] = 0;
 
-				if(beta <= alpha) {
-					break;
-				}
-			}
-			return v;
-		} else {	// minimizing
-			let v = Number.MAX_SAFE_INTEGER;
-			let children = this.getEmptySlots(node);
-			
-			for(let i = 0; i < children.length; i++) {
-				let x = children[i][0];
-				let y = children[i][1];
+        if (beta <= alpha) {
+          break;
+        }
+      }
+      return v;
+    } else {
+      // minimizing
+      let v = Number.MAX_SAFE_INTEGER;
+      let children = this.getEmptySlots(node);
 
-				node[x][y] = this.playerColor;
-				v = Math.min(v, this.minimaxNext(node, depth - 1, alpha, beta, true));
-				beta = Math.min(beta, v);
-				node[x][y] = 0;
+      for (let i = 0; i < children.length; i++) {
+        let x = children[i][0];
+        let y = children[i][1];
 
-				if(beta <= alpha) {
-					break;
-				}
-			}
-			return v;
-		}
-	}
+        node[x][y] = this.playerColor;
+        v = Math.min(v, this.minimaxNext(node, depth - 1, alpha, beta, true));
+        beta = Math.min(beta, v);
+        node[x][y] = 0;
+
+        if (beta <= alpha) {
+          break;
+        }
+      }
+      return v;
+    }
+  }
 }
