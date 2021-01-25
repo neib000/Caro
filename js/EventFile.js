@@ -96,8 +96,8 @@ function Click(id)
 	else
 	{
 		//Cho thời gian đầy lại
-		var pgr = document.getElementById("pgrTime");
-		pgr.value = pgr.getAttribute("max");
+		// var pgr = document.getElementById("pgrTime");
+		// pgr.value = pgr.getAttribute("max");
 	}
 }
 
