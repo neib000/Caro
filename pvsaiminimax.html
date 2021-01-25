@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Gomoku</title>
+		<link href="./Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<!-- 3rd party dependencies -->
+		<script src="./lib/jquery-3.3.1.min.js"></script>
+		<script src="./lib/popper-1.14.1.min.js"></script>
+		<script src="./lib/bootstrap-4.0.0.min.js"></script>
+
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+	
+
+		<!-- 1st party dependencies -->
+		<script src="./js/board.js"></script>
+		<script src="./js/aiminimax.js"></script>
+		<script src="./js/main.js"></script>
+		
+
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+	<body>
+		<div class="container">
+		
+
+			
+
+			<div id="main">
+        <div id="divmain">
+          <table id="board" align="center">
+            <!-- Populated by jQuery -->
+		  </table>
+        </div>
+		<a class="mb-1" onclick="location.reload();"><button class="btn btn-info mb-2">Chơi lại</button></a>
+       
+      </div>
+  
+			<!-- Modals -->
+			<div class="modal fade" id="pick-color" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title margin-auto">Tuỳ chọn trò chơi</h5>
+						</div>
+						<div class="modal-body text-center">
+							<label>Chiều sâu:</label>
+							<p>
+								<select name="game-depth" id="depth">
+									<option value="1">1 (Nhanh nhất)</option>
+									<option value="2">2 (Nhanh)</option>
+									<option value="3">3 (Từ từ)</option>
+									<option value="4">4 (Trung Bình)</option>
+									<option value="5">5 (Chậm hơn)</option>
+								</select>
+							</p>
+							
+							<label>Chọn màu:</label>
+							<p>
+								<a onclick="pickColor('black')"><img class="img-fluid w-10" src="images/Opng.png" alt="black"></a>
+								<a onclick="pickColor('white')"><img class="img-fluid w-10" src="images/Xpng.png" alt="white"></a>
+							</p>
+						</div>
+						<div class="modal-footer">
+							<p class="margin-auto"><strong>Lưu ý</strong> Quân <span><img class="img-fluid" style="width: 5%;" src="images/Opng.png" alt="black"></span> là quân bắt đầu trò chơi</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="end-game" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div id="wingame" class="modal-content" onclick="lookBoard();">
+					</div>
+				</div>
+			</div>
+	</div>
+	</body>
+</html>

@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
+@import url(https://fonts.googleapis.com/css2?family=Potta+One&display=swap);
 *{
 	font-size: 16px;
 	padding: 0;
@@ -8,7 +8,6 @@
   }
 #bgr
 {
-
 	background-image:url('../images/bgr.jpg');
 	background-size: cover;
 	z-index:-900;
@@ -66,8 +65,10 @@
 	height:14px;
 	background-color:#3F6;
 }
-
-.square
+#table .row {
+	margin: 0;
+}
+#table .square
 {
 	width:2rem;
 	height:2rem;
@@ -96,7 +97,7 @@
 	margin-left:20px;
 	margin-top:30px;
 	font-weight:700;
-	font-family:shadows into light;
+	font-family:Potta One;
 	background-color:orange;
 	cursor:pointer;
 	font-size: 20px;
@@ -112,4 +113,20 @@ table{
 }
 table .col{
 	padding: 0;
+}
+/* wingame */
+#wingame{
+	position: absolute;
+	top: -30rem;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background-image: url("../images/youlose.png");
+	background-size: cover;
+	width: 520px;
+	height: 290px;
+	border-radius: 2rem;
+	background-color: white;
+	border: 2px black solid;
+	transition: all 0.5s;
+	z-index: 999;
 }

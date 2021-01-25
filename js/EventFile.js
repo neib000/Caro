@@ -81,9 +81,16 @@ function Click(id)
 	//Check win sau mỗi lần click
 	if (win)
 	{
+		if(AI){
+			var hide = document.getElementById("wingame");
+			hide.style.width = "520px"
+			if (pwin == 0) {hide.style.backgroundImage = "url('../images/youwin.png')";
+							hide.style.width = "440px"}
+			hide.style.top = "50%";
+		}else{
 		var mess = 'Player with "X" win';
 		if (pwin == 0) mess = 'Player with "O" win';
-		alert(mess);
+		alert(mess);}
 		InGame = false;//Sẽ chuyển qua false để không thể đánh tiếp
 	}
 	else
@@ -275,6 +282,7 @@ function winCross1(x,y,Board)
 			 }
 	}
 	return false;
+	
 }
 
 //Kiểm tra win chéo phải sang sang
@@ -399,4 +407,8 @@ function LoadProgress()
 			InGame = false;
 		}
 	},100);
+}
+function hide(){
+	var hide = document.getElementById("wingame");
+	hide.style.top = "-30rem"
 }

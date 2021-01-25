@@ -1,0 +1,96 @@
+body {
+  text-align: center;
+  padding-top: 25px;
+  /* font-family: "Open Sans Condensed", sans-serif; */
+  background-image: url("../images/bgr.jpg");
+  background-size: cover;
+  z-index: -900;
+  overflow: hidden;
+  height: 100%;
+}
+
+h1 {
+  font-family: "Gloria Hallelujah", cursive;
+}
+#main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 1rem;
+}
+#divmain {
+  background-color: white;
+  margin: 8px;
+  border: orange 3px solid;
+}
+#board {
+ 
+  background-color: white;
+  border: orange 2px solid;
+}
+table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+  background-color: white;
+  border: orange 1px solid;
+}
+
+.fork-me {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+td {
+  text-align: center;
+  font-size: 0;
+  /* border: 1px solid black; */
+  height: 2rem;
+  width: 2rem;
+  padding: 0px;
+  border: #bdbdbd 2px solid;
+}
+
+.black {
+  background-image: url("../images/Opng.png") !important;
+  background-size: cover;
+}
+
+.white {
+  background-image: url("../images/Xpng.png") !important;
+  background-size: cover;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.w-10 {
+  width: 10%;
+}
+#wingame{
+	opacity: 1;
+  border-radius: 2rem;
+  width: 520px;
+	height: 350px;
+	background-color: white;
+	border: 2px black solid;
+	transition: all 0.5s;
+  z-index: 999;
+  background-repeat: round;
+  background-size: cover;
+ 
+}
+.humanwin{
+  background-image: url("../images/youwin.png");
+  
+
+
+}
+.comwin{
+  background-image: url("../images/youlose.png");
+
+
+}

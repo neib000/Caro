@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
+@import url(https://fonts.googleapis.com/css2?family=Potta+One&display=swap);
 *{
   font-size: 16px;
   padding: 0;
@@ -46,7 +46,7 @@
    -webkit-transition:0.5s;
     transition:1s;
     color:orange;
-    font-family:shadows into light;
+    font-family:Potta One;
     cursor:pointer;
     border-radius: 1rem;
 }
@@ -82,7 +82,7 @@
    -webkit-transition:0.5s;
     transition:1s;
     color:orange;
-    font-family:shadows into light;
+    font-family:Potta One;
     cursor:pointer;
     border-radius: 1rem;
 }
