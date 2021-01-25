@@ -46,8 +46,8 @@ function Click(id)
 	var square = document.getElementsByClassName("square");
 	var pos = parseInt(id);
 	if (square.item(pos).getAttribute("player") != "-1") return;// ô khác -1 đánh rồi 
-	var path = "url('Images/Opng.png')";// Mặc định O 
-	if (CPlayer == 1) path = "url('Images/Xpng.png')"; // Thay đổi qua X
+	var path = "url('../images/Opng.png')";// Mặc định O 
+	if (CPlayer == 1) path = "url('../images/Xpng.png')"; // Thay đổi qua X
 	square.item(pos).style.backgroundImage = path;//Gắn X O cho ô 
 	square.item(pos).setAttribute("player",CPlayer.toString());//Gắn X or O vào player
 	l_played.push(pos);//Push vào mảng để làm chức năng quay lại
@@ -356,8 +356,8 @@ function Undo(time)
 	if (CPlayer == 0) CPlayer = 1;
 	else CPlayer = 0;
 	
-	var iplayer = "url('Images/Opng.png')";
-	if (CPlayer == 1) iplayer = "url('Images/Xpng.png')";
+	var iplayer = "url('../images/Opng.png')";
+	if (CPlayer == 1) iplayer = "url('../images/Xpng.png')";
 	var imgp = document.getElementById("imgPlayer");
 	imgp.style.backgroundImage = iplayer;
 	
