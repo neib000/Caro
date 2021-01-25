@@ -42,47 +42,6 @@ function AIMode()
 	catch(e) {alert(e.message)}
 }
 
-// function minimax(node, depth, maxmimizingPlayer){
-// 	if(node || depth == 0){
-// 		return node;
-// 	}
-// 	if(maxmimizingPlayer){
-// 		max = -Infinity;
-// 		node.forEach(element => {
-// 			max = maxab(max,minimax(element,depth-1,false))
-// 		});
-// 		return max;
-// 	}else{
-// 		min = Infinity;
-// 		node.forEach(element => {
-// 			min = minab(min,minimax(element,depth-1,true))
-// 		});
-// 		return min;
-// 	}
-// }
-// function minimax2(node, depth, maxmimizingPlayer){
-// 	return alphabeta(node, depth,-Infinity,-Infinity, maxmimizingPlayer)
-// }
-// function alphabeta(node, depth,a,b, maxmimizingPlayer){
-// 	if(node || depth == 0){
-// 		return node;
-// 	}
-// 	if(maxmimizingPlayer){
-		
-// 		node.forEach(element => {
-// 			a = maxab(max,alphabeta(element,depth-1,a,b ,false));
-// 			if (a >= b) break;
-// 		});
-// 		return max;
-// 	}else{
-// 		min = Infinity;
-// 		node.forEach(element => {
-// 			b = minab(min,alphabeta(element,depth-1,a,b ,true));
-// 			if (a >= b) break;
-// 		});
-// 		return min;
-// 	}
-// }
 
 //Tính điểm cho mỗi ô
 function GetMark(x,y,Tboard)
